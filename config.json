@@ -1,0 +1,23 @@
+{
+    "debug": true,
+    "server": {
+        "address": ":9090"
+    },
+    "context": {
+        "timeout": 5
+    },
+    "database_1": {
+        "host": "docker.for.mac.localhost",
+        "port": "30988",
+        "user": "root",
+        "pass": "root",
+        "name": "agent"
+    },
+    "database_2": {
+        "host": "docker.for.mac.localhost",
+        "port": "30989",
+        "user": "root",
+        "pass": "root",
+        "name": "device"
+    }
+}

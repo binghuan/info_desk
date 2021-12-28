@@ -1,0 +1,57 @@
+version: '3' # 目前使用的版本，可以參考官網：
+services:
+  web:
+    build: ./website4testing/ # Build 在同一資料夾的 Dockerfile（描述 Image 要組成的 yaml 檔案）成 container
+    ports:
+      - "9091:8000" # 外部露出開放的 port 對應到 docker container 的 port
+  server:
+    build: ./ # Build 在同一資料夾的 Dockerfile（描述 Image 要組成的 yaml 檔案）成 container
+    ports:
+      - "9090:9090" # 外部露出開放的 port 對應到 docker container 的 port
+    volumes:
+      - ./config.json:/app/config.json
+    depends_on:
+      mysql_agent:
+        condition: service_healthy
+      mysql_device:
+        condition: service_healthy
+    
+  mysql_agent:
+    image: mysql:latest
+    container_name: info_desk_mysql_1
+    security_opt:
+      - seccomp:unconfined    
+    command: mysqld --user=root
+    volumes:
+      - ./database/agent.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database/mycustom.cnf:/etc/mysql/conf.d/custom.cnf
+    ports:
+      - 30988:3306
+    environment:
+      - MYSQL_DATABASE=agent
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=root
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 10
+
+  mysql_device:
+    image: mysql:latest
+    container_name: info_desk_mysql_2
+    command: mysqld --user=root
+    volumes:
+      - ./database/device.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database/mycustom.cnf:/etc/mysql/conf.d/custom.cnf
+    ports:
+      - 30989:3306
+    environment:
+      - MYSQL_DATABASE=device
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=root
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 10
