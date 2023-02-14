@@ -24,9 +24,9 @@ The purpose of this project is to get a list of banks
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## The Design
-![](./pictures/system_design.png)
-![](./pictures/file_structure.png)
-![](./pictures/mapping_table.png)
+![](./README/system_design.png)
+![](./README/file_structure.png)
+![](./README/mapping_table.png)
 if you want to build and run the server locally, here is the user guide.  
 
 ## On Server Side
@@ -42,11 +42,11 @@ go run main.go
 ```
 
 Here is the APIs provided by Server
-![](./pictures/api_banks.png)
-![](./pictures/api_branches.png)
+![](./README/api_banks.png)
+![](./README/api_branches.png)
 
 There are two tables related to the task.  
-![](./pictures/related_tables.png)
+![](./README/related_tables.png)
 
 ## On Front-End Side 
 ### Start Web Server to Interact with Back-End Server
@@ -58,20 +58,20 @@ http-server --cors;
 ```
 
 After launching the web server, you can visit the website.   
-![](./pictures/website4testing_default.png)
+![](./README/website4testing_default.png)
 
 Once you have chosen the bank, you can filter by province and city.  
 And then, you can see the result.  
-![](./pictures/website4testing_result.png)
+![](./README/website4testing_result.png)
 
 ## Test on Website
-![](./pictures/demo_api_verification_20211209.gif)
+![](./README/demo_api_verification_20211209.gif)
 
 ## How to Run Test Cases. 
 ```shell
 go test -v ./
 ```
-![](./pictures/testcases.png)
+![](./README/testcases.png)
 
 ## How to Use CLI for Testing
 * Command to get a list of banks that support withdrawals
@@ -83,16 +83,16 @@ curl --location --request GET 'http://127.0.0.1:9090/banks'
 ```shell
 curl --location --request GET 'http://127.0.0.1:9090/branches?city=深圳市&bankcode=104&province=广东省'
 ```
-![](./pictures/test_by_cli.gif)
+![](./README/test_by_cli.gif)
 
 ## Use Docker to Start the Server
 Input following command in the root folder. Then, visit the website "http://localhost:9091"
 ```shell
 docker-compose up -d
 ```
-![](./pictures/docker-compose.gif)
-![](./pictures/container_on_docker_dashboard.png)
+![](./README/docker-compose.gif)
+![](./README/container_on_docker_dashboard.png)
 
 ## How to build image 
-![](./pictures/how_to_build_image.png)
+![](./README/how_to_build_image.png)
 ,
